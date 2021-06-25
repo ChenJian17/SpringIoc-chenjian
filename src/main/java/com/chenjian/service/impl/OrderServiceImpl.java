@@ -1,0 +1,37 @@
+package com.chenjian.service.impl;
+
+import com.chenjian.bean.Order;
+import com.chenjian.dao.OrderDao;
+import com.chenjian.service.OrderService;
+import com.sun.org.apache.xpath.internal.operations.Or;
+import org.springframework.annotation.Autowired;
+import org.springframework.annotation.Service;
+
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * Created by chenjian on 2021/6/11 21:15
+ */
+@Service(value = "os")
+public class OrderServiceImpl  implements OrderService{
+    @Autowired
+    OrderDao orderDao;
+
+    @Override
+    public List<Order> findOrders() {
+//        System.out.println("业务逻辑代码...................");\
+        System.out.println("add 产品");
+        List<Order> orders = new ArrayList<>();
+        orders.add(new Order(111,"电子产品","2020-10-10",3000));
+        orders.add(new Order(222,"图书产品","2020-10-10",3000));
+        orders.add(new Order(111,"运动产品","2020-10-10",3000));
+        return orders;
+//        return orderDao.findOrders();
+    }
+
+    @Override
+    public int addOrder(Order o) {
+        return 1;
+    }
+}
