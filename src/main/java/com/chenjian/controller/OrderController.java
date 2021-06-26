@@ -29,4 +29,9 @@ public class OrderController {
         int count = orderService.addOrder(new Order(1111, "电脑", "2020-10-10", 80000));
         System.out.println(count);
     }
+
+    public void zhuanzhang(){
+        int count = orderService.transferMoney("西门庆","金莲",1000);
+        System.out.println(count);
+    }
 }

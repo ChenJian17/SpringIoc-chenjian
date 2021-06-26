@@ -12,4 +12,6 @@ public interface OrderService {
     List<Order> findOrders();
 
     int addOrder(Order o);
+
+    int transferMoney(String fromName,String toName,Integer money);
 }

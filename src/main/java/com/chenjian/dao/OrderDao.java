@@ -13,4 +13,8 @@ import java.util.List;
 public interface OrderDao {
 
     List<Order> findOrders();
+
+    int addOrder(Order o);
+
+    int excuteMoney(String name, Integer money);
 }

@@ -10,7 +10,7 @@ import java.util.List;
 /**
  * Created by chenjian on 2021/6/11 21:15
  */
-@Service(value = "os1")
+//@Service(value = "os1")
 public class OrderServiceImpl1 implements OrderService {
     @Override
     public List<Order> findOrders() {
@@ -23,6 +23,11 @@ public class OrderServiceImpl1 implements OrderService {
 
     @Override
     public int addOrder(Order o) {
+        return 0;
+    }
+
+    @Override
+    public int transferMoney(String fromName, String toName, Integer money) {
         return 0;
     }
 }

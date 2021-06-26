@@ -1,6 +1,7 @@
 package org.springframework.container;
 
 import org.springframework.annotation.*;
+import org.springframework.proxy.CglibProxy;
 import org.springframework.proxy.JdkProxy;
 import org.springframework.xml.SpringConfigPaser;
 
@@ -174,8 +175,6 @@ public class ClassPathXmlApplicationContext {
                     //把不是要代理的类注入一下，即排序要代理的类的注入
                     doDIByClasses(aclass);
                 }
-
-
             }
 
         }
@@ -252,6 +251,29 @@ public class ClassPathXmlApplicationContext {
                 if (c.isAnnotationPresent(Controller.class) || c.isAnnotationPresent(Service.class) || c.isAnnotationPresent(Repository.class)){
                     //对象的实例化
                     Object o = c.newInstance();
+                    //判断这个类中是否有方法被@Transactional修饰，如果有那么这个类需要事务支持
+                    Method[] declaredMethods = c.getDeclaredMethods();
+                    //存储有事务的方法名字
+                    List<String> transactionalMethods = new ArrayList<>();
+                    if (declaredMethods != null){
+                        for (Method declaredMethod: declaredMethods){
+                            boolean annotationPresent = declaredMethod.isAnnotationPresent(Transactional.class);
+                            if (annotationPresent){
+                                //方法上@Transactional注解
+                                transactionalMethods.add(declaredMethod.getName());
+                            }
+                        }
+                        if (transactionalMethods.size()>0){
+                            //找到了哪个类哪个方法需要事务
+                            //TODO: c这个类中transactionalMethods集合需要事务
+                            CglibProxy cglibProxy = new CglibProxy(c,transactionalMethods);
+                            //Cglib动态代理生成对象
+                            o = cglibProxy.getProxyInstance();
+                        }
+
+                    }
+
+                     //把对象实现的接口放入IOC容器中
                     Class<?>[] interfaces = c.getInterfaces();
                     if (interfaces != null){
                         for (Class<?> anInterface: interfaces){
@@ -373,7 +395,6 @@ public class ClassPathXmlApplicationContext {
 //        URL url = ClassPathXmlApplicationContext.class.getClassLoader().getResource("");
         URL url = Thread.currentThread().getContextClassLoader().getResource("");
         basePackage = basePackage.replace(".", File.separator);
-//        System.out.println(basePackage);
 
         File file = new File(url.toString().replace("file:/",""),basePackage);
         String path = file.toString();
@@ -383,9 +404,6 @@ public class ClassPathXmlApplicationContext {
         //D:\IdeaProjects\SpringIoc-chenjian\target\classes\com\chenjian
         System.out.println(path);
         this.findAllClasses(file);
-
-
-//        System.out.println(url);
     }
 
 

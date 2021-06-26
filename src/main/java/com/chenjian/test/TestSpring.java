@@ -13,6 +13,6 @@ public class TestSpring {
 //        OrderController orderController = (OrderController) context.getBean(OrderController.class);
         OrderController orderController = (OrderController) context.getBean("oc");
 //        orderController.showInfo();
-        orderController.add();
+        orderController.zhuanzhang();
     }
 }

@@ -10,7 +10,7 @@ import org.springframework.aop.ProceedingJoinPoint;
 @Aspect
 public class LogAop {
 
-    @Around(execution = "com.chenjian.service.impl.OrderServiceImpl.addOrder")
+//    @Around(execution = "com.chenjian.service.impl.OrderServiceImpl.addOrder")
     public Object around(ProceedingJoinPoint joinPoint){
         Object result=null;
         try {
