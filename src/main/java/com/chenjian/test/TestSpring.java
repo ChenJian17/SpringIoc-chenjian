@@ -8,8 +8,10 @@ import org.springframework.container.ClassPathXmlApplicationContext;
  */
 public class TestSpring {
     public static void main(String[] args) {
-        ClassPathXmlApplicationContext context =
-                new ClassPathXmlApplicationContext("applicationContext.xml");
+        ClassPathXmlApplicationContext context = ClassPathXmlApplicationContext.getContext();
+        context.bootStrap("applicationContext.xml");
+
+//                new ClassPathXmlApplicationContext("applicationContext.xml");
 //        OrderController orderController = (OrderController) context.getBean(OrderController.class);
         OrderController orderController = (OrderController) context.getBean("oc");
 //        orderController.showInfo();
