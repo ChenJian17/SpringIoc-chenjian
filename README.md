@@ -12,6 +12,7 @@
   如果匹配到多个抛异常，如果匹配到0个也抛异常
 6.对外提供一个获取IOC容器对象的API，context.getBean(OrderController.class)
 > SpringIOC实现流程图概览
+![image](https://user-images.githubusercontent.com/31843897/126051773-305cb77e-43f0-4dac-8843-3fb9043a2706.png)
 
 * 已完成IOC容器iocContainer，对象以class为key
 * 已完成IOCName容器iocNameContainer，存储对象名和对象实例,Spring的IOC以名字为key的容器
